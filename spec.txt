@@ -1,0 +1,20 @@
+digital
+Botboard = Arduino -2
+
+analog
+Botboard = Arduino +8
+
+150 = Low
+300 = High
+
+
+//Servo5
+60 middle
+70 - X
+50 - A
+
+//Servo 2
+50 middle
+65 Left
+40 Up
+
