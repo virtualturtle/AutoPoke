@@ -33,6 +33,7 @@ void pressButton(Servo s, int time, int rest, int press) {
 	s.write(press);
 	delay(time);
 	s.write(rest);
+	delay(250);
 }
 
 void pressLeft(int time) {
@@ -66,11 +67,22 @@ int isScreenOn() {
 
 void setup()
 {
-    Serial.begin(9600);
-    sLeftUp.attach(sPinLeftUp);
+	Serial.begin(9600);
+	sLeftUp.attach(sPinLeftUp);
 	sDownRight.attach(sPinDownRight);
 	sYB.attach(sPinYB);
 	sAX.attach(sPinAX);
+
+
+	pressLeft(shortPressTime);
+	pressUp(shortPressTime);
+	pressDown(shortPressTime);
+	pressRight(shortPressTime);
+	pressY(shortPressTime);
+	pressB(shortPressTime);
+	pressA(shortPressTime);
+	pressX(shortPressTime);
+	delay(5000);
 }
 
 void hunt() {
@@ -87,7 +99,7 @@ void check() {
 	Serial.println("Checking...");
 	if (isScreenOn()) {
 		Serial.println("Nope!");
-		return //Go back to hunting
+		return; //Go back to hunting
 	}
 	
 	//Wait to see if screen has turned back on
