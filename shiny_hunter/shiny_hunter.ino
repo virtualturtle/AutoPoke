@@ -27,6 +27,8 @@ int centerAX = 60;
 int posA = 50;
 int posX = 70;
 
+int shortPressTime = 500;
+
 void pressButton(Servo s, int time, int rest, int press) {
 	s.write(press);
 	delay(time);
@@ -71,8 +73,62 @@ void setup()
 	sAX.attach(sPinAX);
 }
 
+void hunt() {
+	Serial.println("Start Hunt");
+	Serial.println("Go Left");
+	pressLeft(shortPressTime);
+	check();
+	Serial.println("Go Right");
+	pressRight(shortPressTime);
+	check();
+}
+
+void check() {
+	Serial.println("Checking...");
+	if (isScreenOn()) {
+		Serial.println("Nope!");
+		return //Go back to hunting
+	}
+	
+	//Wait to see if screen has turned back on
+	delay(12000);
+	
+	//If screen is on, then return to hunting
+	if (isScreenOn()) {
+		Serial.println("Nope, Closing Menu");
+		pressDown(shortPressTime);
+		delay(500);
+		pressRight(shortPressTime);
+		delay(500);
+		pressA(shortPressTime);
+		delay(7000);
+	} else { //If screen is still off, then we have a shiny
+		Serial.println("Got One!");
+		shiny();
+	}
+}
+
+void shiny() {
+	delay(500);
+	pressLeft(shortPressTime);
+	delay(500);
+	pressA(shortPressTime);
+	delay(500);
+	pressRight(shortPressTime);
+	delay(500);
+	pressA(shortPressTime);
+	delay(500);
+	pressA(shortPressTime);
+	delay(500);
+	pressA(shortPressTime);
+	delay(25000);
+	pressB(shortPressTime);
+	delay(500);
+	pressA(shortPressTime);
+	delay(450);
+}
+
 void loop()
 {
-	Serial.println(isScreenOn()); //Write the value of the photoresistor to the serial monitor.
-	delay(10); //short delay for faster response to light.
+	hunt();
 }
