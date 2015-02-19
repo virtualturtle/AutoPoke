@@ -16,14 +16,14 @@ Servo sAX;
 
 int centerLeftUp = 50;
 int posLeft = 75;
-int posUp = 35;
+int posUp = 32;
 
 int centerDownRight = 130;
 int posDown = 97;
 int posRight = 146;
 
 int centerYB = 62;
-int posY = 40;
+int posY = 38;
 int posB = 93;
 
 int centerAX = 62;
@@ -190,22 +190,6 @@ void egg2to5() {
         checkegg();
         Serial.println("Hit wall, going back");
         pressLeft(3400);
-        pressRight(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressRight(3400);
-        pressLeft(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressLeft(3400);
-        pressRight(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressRight(3400);
-        pressLeft(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressLeft(3400);
         pressRight(100);
         checkegg();
         Serial.println("Hit wall, going back");
@@ -310,7 +294,7 @@ void deposit_hatched() {
         pressB(150);
         delay(700);
         pressB(150);
-        delay(400);
+        delay(500);
         pressB(150);
         delay(3100);
         pressLeft(220);
@@ -319,13 +303,14 @@ void deposit_hatched() {
         return;
 }
 void deposit() {
-        pressRight(150);
-        pressA(150);
-        pressA(150);
+        pressRight(350);
+        pressA(350);
+        pressA(350);
+        delay(300);
         if (boxlimit == 30) {
-        pressRight(150);
-        pressA(150);
-        pressA(150);
+        pressRight(250);
+        delay(300);
+        pressA(250);
         boxlimit = 0;
         return;
         } else {
