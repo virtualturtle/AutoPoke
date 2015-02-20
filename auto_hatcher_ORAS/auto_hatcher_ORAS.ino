@@ -170,30 +170,6 @@ void egg2to5() {
         checkegg();
         Serial.println("Hit wall, going back");
         pressRight(3400);
-        pressLeft(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressLeft(3400);
-        pressRight(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressRight(3400);
-        pressLeft(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressLeft(3400);
-        pressRight(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressRight(3400);
-        pressLeft(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressLeft(3400);
-        pressRight(100);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressRight(3400);
         askforegg();
         return;
        
@@ -303,19 +279,23 @@ void deposit_hatched() {
         return;
 }
 void deposit() {
-        pressRight(350);
-        pressA(350);
-        pressA(350);
-        delay(300);
         if (boxlimit == 30) {
         pressRight(250);
-        delay(300);
         pressA(250);
+        pressA(250);
+        delay(300);
+        pressRight(150);
+        pressA(150);
+        delay(300);
         boxlimit = 0;
         return;
         } else {
-          pressA(150);
-          pressA(150);
+        pressRight(250);
+        pressA(250);
+        pressA(250);
+        delay(300);
+        pressA(150);
+        delay(300);
         return;
         }
 }
