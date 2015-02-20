@@ -99,22 +99,30 @@ void setup()
 	delay(5000);
 }
 void askforegg() {
-        pressA(500);
-        pressA(500);
-        pressA(300);
-        pressA(350);
-        if (isScreenDim()) {
-          pressA(300);
-          pressA(300);
-          pressA(300);
-          delay(3500);
-          pressA(300);
-          pressA(300);
-          eggs ++;
-          return;
+      if (eggs == 5) {
+        return;
         } else {
-          return;
-        
+          pressA(400);
+          delay(100);
+          pressA(400);
+          delay(100);
+          pressA(300);
+          delay(100);
+          pressA(350);
+          if (isScreenDim()) {
+            pressA(300);
+            delay(100);
+            pressA(300);
+            delay(100);
+            pressA(300);
+            delay(3500);
+            pressA(400);
+            pressA(400);
+            eggs ++;
+            return;
+          } else {
+            return;
+          }
         }
 }    
 
@@ -128,25 +136,28 @@ void egg1() {
         Serial.println("Hit wall, going back");
         pressLeft(3400);
         Serial.println("Hit wall, going back");
-        pressRight(3400);
-        Serial.println("Hit wall, going back");
-        pressLeft(3400);
-        Serial.println("Hit wall, going back");
-        pressRight(3400);
-        Serial.println("Hit wall, going back");
-        pressLeft(3400);
-        Serial.println("Hit wall, going back");
-        pressRight(3400);
-        Serial.println("Hit wall, going back");
-        pressLeft(3400);
-        Serial.println("Hit wall, going back");
-        pressRight(3400);
-        askforegg();
+        pressRight(3500);
+        pressA(300);
+        delay(100);
+        pressA(300);
+        delay(100);
+        pressA(300);
+        delay(100);
+        pressA(300);
+        delay(100);
+        pressA(300);
+        delay(100);
+        pressA(300);
+        delay(100);
+        pressA(300);
+        delay(3500);
+        pressA(400);
+        eggs ++;
         return;
 }
 
 void egg2to5() {
-  for (int count = 0; count < 4; count++) {
+  for (int count = 0; count < 100; count++) {
         Serial.println("Hit wall, going back");
         sDownRight.write(posRight);
         for (int count2 = 0; count2 < 3400; count2+=10){
@@ -158,7 +169,7 @@ void egg2to5() {
         }
 	sDownRight.write(centerDownRight);
 	delay(250);
-
+        askforegg();
         sLeftUp.write(posLeft);
         for (int count2 = 0; count2 < 3400; count2+=10){
           	delay(10);
@@ -168,11 +179,7 @@ void egg2to5() {
                 }
         }
 	sLeftUp.write(centerLeftUp);
-        pressRight(150);
-        Serial.println("Hit wall, going back");
-        pressRight(3400);
-        pressLeft(150);
-        checkegg();
+       
   }
 }
 
@@ -208,49 +215,9 @@ void deposit_hatched() {
         delay(100);
         pressLeft(150);
         delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressLeft(150);
-        delay(100);
-        pressUp(600);
+        pressUp(1000);
         delay(2000);
-        pressUp(2000);
+        pressUp(1500);
         pressRight(250);
         pressRight(250);
         pressUp(150);
@@ -276,7 +243,15 @@ void deposit_hatched() {
         delay(3300);
         pressLeft(220);
         pressLeft(220);
-        pressDown(4300);
+        pressDown(200);
+        pressDown(200);
+        pressDown(200);
+        pressDown(200);
+        pressDown(200);
+        pressDown(200);
+        pressDown(200);
+        delay(2700);
+        pressDown(150);
         return;
 }
 void deposit() {
@@ -284,8 +259,9 @@ void deposit() {
         pressRight(250);
         pressA(250);
         pressA(250);
-        delay(300);
+        delay(1000);
         pressRight(150);
+        delay(1000);
         pressA(150);
         delay(300);
         boxlimit = 0;
