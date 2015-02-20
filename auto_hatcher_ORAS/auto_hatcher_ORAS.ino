@@ -66,10 +66,19 @@ void pressX(int time) {
 }
 
 int isScreenOn() {
-	return analogRead(lightPin) > 190;
+	return analogRead(lightPin) > 220;
 }
 
-
+int isScreenDim() {
+	return analogRead(lightPin) < 190;
+}
+void testdim() {
+        if (isScreenDim()) {
+          checkegg();
+        } else {
+          return;
+        }
+}
 void setup()
 {
 	Serial.begin(9600);
@@ -94,16 +103,21 @@ void askforegg() {
         pressA(500);
         pressA(300);
         pressA(350);
-        pressA(300);
-        pressA(300);
-        pressA(300);
-        delay(3500);
-        pressA(300);
-        pressA(300);
-        eggs ++;
-        return;
+        if (isScreenDim()) {
+          pressA(300);
+          pressA(300);
+          pressA(300);
+          delay(3500);
+          pressA(300);
+          pressA(300);
+          eggs ++;
+          return;
+        } else {
+          return;
         
-}       
+        }
+}    
+
 void egg1() {
 	Serial.println("Start Biking");
 	pressRight(2000);
@@ -132,47 +146,34 @@ void egg1() {
 }
 
 void egg2to5() {
+  for (int count = 0; count < 4; count++) {
         Serial.println("Hit wall, going back");
-        pressLeft(3400);
+        sDownRight.write(posRight);
+        for (int count2 = 0; count2 < 3400; count2+=10){
+          	delay(10);
+                if (checkegg()) {
+                    sDownRight.write(centerDownRight);
+                    return;
+                }
+        }
+	sDownRight.write(centerDownRight);
+	delay(250);
+
+        sLeftUp.write(posLeft);
+        for (int count2 = 0; count2 < 3400; count2+=10){
+          	delay(10);
+                if (checkegg()) {
+                   sLeftUp.write(centerLeftUp);
+                   return ;
+                }
+        }
+	sLeftUp.write(centerLeftUp);
         pressRight(150);
-        checkegg();
         Serial.println("Hit wall, going back");
         pressRight(3400);
         pressLeft(150);
         checkegg();
-        Serial.println("Hit wall, going back");
-        pressLeft(3400);
-        pressRight(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressRight(3400);
-        pressLeft(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressLeft(3400);
-        pressRight(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressRight(3400);
-        pressLeft(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressLeft(3400);
-        pressRight(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressRight(3400);
-        pressLeft(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressLeft(3400);
-        pressRight(150);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        pressRight(3400);
-        askforegg();
-        return;
-       
+  }
 }
 
 void gatheregg() {
@@ -188,7 +189,6 @@ void gatheregg() {
         return;
        
 }
-
 void deposit_hatched() {
         hatched = 0;
         Serial.println("Going to deposit Hatchlings...");
@@ -254,7 +254,8 @@ void deposit_hatched() {
         pressRight(250);
         pressRight(250);
         pressUp(150);
-        pressA(1900);
+        pressA(150);
+        delay(1900);
         pressA(200);
         pressA(250);
         pressA(150);
@@ -272,10 +273,10 @@ void deposit_hatched() {
         pressB(150);
         delay(500);
         pressB(150);
-        delay(3100);
+        delay(3300);
         pressLeft(220);
         pressLeft(220);
-        pressDown(3700);
+        pressDown(4300);
         return;
 }
 void deposit() {
@@ -308,35 +309,30 @@ void hatch() {
         if (hatched == 5) {
         deposit_hatched();
         } else {
-        pressRight(3400);
-        pressLeft(100);
-        checkegg();
-        Serial.println("Hit wall, going back");
-        if (hatched == 5) {
-        deposit_hatched();
-        } else {
-        hatch();
-        }
+          pressRight(3400);
+          pressLeft(100);
+          checkegg();
+          Serial.println("Hit wall, going back");
+          if (hatched == 5) {
+          deposit_hatched();
+          } else {
+          hatch();
+          }
         }
 }
-void checkegg() {
+
+int checkegg() {
+  if  (isScreenDim()) {
         pressA(200);
-	Serial.println("Did anything hatch?");
-	if (isScreenOn()) {
-		Serial.println("Nope.");
-		return; //Go back to hatching
-	}
-	 else { //If screen is still off, then there is an egg hatching
-		Serial.println("egg is hatching...");
-		delay(19000);
-                pressB(shortPressTime);//Configurable if you want a nickname
-                delay(3000);
-                hatched ++;
-                return;
-
-	}
+	Serial.println("egg is hatching...");
+	delay(19000);
+        pressB(shortPressTime);//Configurable if you want a nickname
+        delay(3000);
+        hatched ++;
+        return true;
+  }
+  return false;
 }
-
 
 
 void loop()
