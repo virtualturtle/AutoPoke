@@ -110,6 +110,7 @@ void askforegg() {
           delay(100);
           pressA(350);
           if (isScreenDim()) {
+            Serial.println("Egg Available...");
             pressA(300);
             delay(100);
             pressA(300);
@@ -121,6 +122,7 @@ void askforegg() {
             eggs ++;
             return;
           } else {
+            Serial.println("No egg.");
             return;
           }
         }
@@ -143,7 +145,6 @@ void egg1() {
 
 void egg2to5() {
   for (int count = 0; count < 1000; count++) {
-        Serial.println("Hit wall, going back");
         sDownRight.write(posRight);
         for (int count2 = 0; count2 < 3400; count2+=10){
           	delay(10);
@@ -173,8 +174,7 @@ void gatheregg() {
 	Serial.println("Bike");
 	pressY(shortPressTime);
         pressUp(shortPressTime);
-        egg2to5();
-        egg2to5();
+        egg1();
         egg2to5();
         egg2to5();
         egg2to5();
@@ -270,14 +270,14 @@ void hatch() {
         pressRight(100);
         checkegg();
         Serial.println("Hit wall, going back");
-        if (hatched == 6) {
+        if (hatched == 5) {
         deposit_hatched();
         } else {
           pressRight(3400);
           pressLeft(100);
           checkegg();
           Serial.println("Hit wall, going back");
-          if (hatched == 6) {
+          if (hatched == 5) {
           deposit_hatched();
           } else {
           hatch();
