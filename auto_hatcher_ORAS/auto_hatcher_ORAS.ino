@@ -1,6 +1,6 @@
 #include <Servo.h>
 
-int boxlimit = 0;
+int boxlimit = 30;
 int eggs = 0;
 int hatched = 0;
 int lightPin = 2;  //define a pin for Photo resistor
@@ -137,27 +137,12 @@ void egg1() {
         pressLeft(3400);
         Serial.println("Hit wall, going back");
         pressRight(3500);
-        pressA(300);
-        delay(100);
-        pressA(300);
-        delay(100);
-        pressA(300);
-        delay(100);
-        pressA(300);
-        delay(100);
-        pressA(300);
-        delay(100);
-        pressA(300);
-        delay(100);
-        pressA(300);
-        delay(3500);
-        pressA(400);
-        eggs ++;
+        askforegg();
         return;
 }
 
 void egg2to5() {
-  for (int count = 0; count < 100; count++) {
+  for (int count = 0; count < 1000; count++) {
         Serial.println("Hit wall, going back");
         sDownRight.write(posRight);
         for (int count2 = 0; count2 < 3400; count2+=10){
@@ -188,7 +173,8 @@ void gatheregg() {
 	Serial.println("Bike");
 	pressY(shortPressTime);
         pressUp(shortPressTime);
-        egg1();
+        egg2to5();
+        egg2to5();
         egg2to5();
         egg2to5();
         egg2to5();
@@ -233,6 +219,7 @@ void deposit_hatched() {
         deposit();
         deposit();
         boxlimit +5;
+        Serial.println("ADDED 5");
         pressB(150);
         delay(400);
         pressB(150);
@@ -265,6 +252,7 @@ void deposit() {
         pressA(150);
         delay(300);
         boxlimit = 0;
+        Serial.println("SET TO 0");
         return;
         } else {
         pressRight(250);
@@ -282,14 +270,14 @@ void hatch() {
         pressRight(100);
         checkegg();
         Serial.println("Hit wall, going back");
-        if (hatched == 5) {
+        if (hatched == 6) {
         deposit_hatched();
         } else {
           pressRight(3400);
           pressLeft(100);
           checkegg();
           Serial.println("Hit wall, going back");
-          if (hatched == 5) {
+          if (hatched == 6) {
           deposit_hatched();
           } else {
           hatch();
