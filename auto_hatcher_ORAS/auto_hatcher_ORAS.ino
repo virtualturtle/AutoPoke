@@ -1,4 +1,4 @@
-#include <Servo.h>
+ #include <Servo.h>
 
 int boxlimit = 0;
 int eggs = 0;
@@ -16,19 +16,19 @@ Servo sAX;
 
 int centerLeftUp = 50;
 int posLeft = 75;
-int posUp = 32;
+int posUp = 33;
 
 int centerDownRight = 130;
-int posDown = 97;
-int posRight = 146;
+int posDown = 95;
+int posRight = 176;
 
 int centerYB = 62;
-int posY = 38;
+int posY = 49;
 int posB = 93;
 
 int centerAX = 62;
-int posA = 49;
-int posX = 73;
+int posA = 43;
+int posX = 84;
 
 int shortPressTime = 180;
 int holdpress = 5200;
@@ -66,7 +66,7 @@ void pressX(int time) {
 }
 
 int isScreenDim() {
-  return analogRead(lightPin) < 250;
+  return analogRead(lightPin) < 200;
 }
 
 void setup()
@@ -95,26 +95,28 @@ void setup()
   If we get one, increase our egg counter
 */
 void askforegg() {
+  delay(200);
   Serial.println("Ask For Egg");
   if (eggs != 5) {
-    delay(150);
-    pressA(400);
-    delay(100);
-    pressA(400);
-    delay(100);
-    pressA(300);
-    delay(100);
-    pressA(350);
+    pressA(150);
+    delay(350);
+    pressA(150);
+    delay(350);
+    pressA(150);
+    delay(250);
+    pressA(150);
+    delay(350);
     if (isScreenDim()) {
       Serial.println("Egg Available...");
-      pressA(300);
-      delay(100);
-      pressA(300);
-      delay(100);
-      pressA(300);
-      delay(3500);
-      pressA(400);
-      pressA(400);
+      pressA(100);
+      delay(250);
+      pressA(100);
+      delay(250);
+      pressA(100);
+      delay(3200);
+      pressA(100);
+      delay(250);
+      pressA(100);
       eggs ++;
     } else {
       Serial.println("No egg.");
@@ -129,7 +131,7 @@ void checkMaybeHatchEgg() {
     Serial.println("egg is hatching...");
     pressA(200);
     delay(18500);
-    pressB(shortPressTime);//Configurable if you want a nickname
+    pressB(300);//Configurable if you want a nickname
     delay(3000);
     hatched ++;
   }
@@ -171,9 +173,9 @@ void gatherAndHatch5() {
 void deposit_hatched() {
   hatched = 0;
   Serial.println("Going to deposit Hatchlings...");
-  pressRight(3400);
-  pressY(150);
-  pressUp(150);
+  pressRight(3700);
+  pressY(200);
+  pressUp(200);
   delay(1000);
   pressLeft(150);
   delay(100);
@@ -216,6 +218,7 @@ void deposit_hatched() {
   delay(3300);
   pressLeft(220);
   pressLeft(220);
+  pressLeft(220);
   pressDown(200);
   pressDown(200);
   pressDown(200);
@@ -231,9 +234,9 @@ void deposit() {
     pressRight(250);
     pressA(250);
     pressA(250);
-    delay(1000);
+    delay(500);
     pressRight(150);
-    delay(1000);
+    delay(500);
     pressA(150);
     delay(300);
     boxlimit = 0;
@@ -242,9 +245,9 @@ void deposit() {
     pressRight(250);
     pressA(250);
     pressA(250);
-    delay(300);
-    pressA(150);
-    delay(300);
+    delay(400);
+    pressA(250);
+    delay(400);
   }
 }
 
